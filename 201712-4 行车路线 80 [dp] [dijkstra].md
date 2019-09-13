@@ -1,28 +1,31 @@
-# 201712-4 行车路线 80 [dp] [dijkstra]
+# 201712-4 行车路线 [dp] [dijkstra]
+
+1. `type long long ll;`
 
 ```c++
-#include<bits/stdc++.h>
+//#include<bits/stdc++.h>
 #include<iostream>
 #include<vector>
 #include<queue>
 using namespace std;
+typedef long long ll;
 const int maxN=500+5;
 struct road{
-    int b,t,c;
+    ll b,t,c;
 };
 vector<road> r[maxN];
-int n,m,ans=0,vis[maxN]={0},dis1[maxN],dis2[maxN],l[maxN]={0};
+ll n,m,ans=0,vis[maxN]={0},dis1[maxN],dis2[maxN],l[maxN]={0};
 int main(){
     fill(dis1,dis1+maxN,INT_MAX);
     fill(dis2,dis2+maxN,INT_MAX);
     cin>>n>>m;
-    int t,a,b,c;
+    ll t,a,b,c;
     for(int i=0;i<m;i++){
         cin>>t>>a>>b>>c;
         r[a].push_back({b,t,c});
         r[b].push_back({a,t,c});
     }
-    queue<int> q;
+    queue<ll> q;
     q.push(1);
     dis1[1]=dis2[1]=0;
     vis[1]=1;
