@@ -1,0 +1,90 @@
+# 201712-4 行车路线 80 [dp] [dijkstra]
+
+```c++
+#include<bits/stdc++.h>
+#include<iostream>
+#include<vector>
+#include<queue>
+using namespace std;
+const int maxN=500+5;
+struct road{
+    int b,t,c;
+};
+vector<road> r[maxN];
+int n,m,ans=0,vis[maxN]={0},dis1[maxN],dis2[maxN],l[maxN]={0};
+int main(){
+    fill(dis1,dis1+maxN,INT_MAX);
+    fill(dis2,dis2+maxN,INT_MAX);
+    cin>>n>>m;
+    int t,a,b,c;
+    for(int i=0;i<m;i++){
+        cin>>t>>a>>b>>c;
+        r[a].push_back({b,t,c});
+        r[b].push_back({a,t,c});
+    }
+    queue<int> q;
+    q.push(1);
+    dis1[1]=dis2[1]=0;
+    vis[1]=1;
+    while(!q.empty()){
+        int x=q.front();
+        q.pop();
+        vis[x]=0;
+        //cout<<dis2[x]<<endl;
+        for(int i=0;i<r[x].size();i++){
+            //cout<<r[x][i].t<<endl;
+            if(r[x][i].t==0){
+                if(dis1[x]!=INT_MAX&&dis1[r[x][i].b]>dis1[x]+r[x][i].c){
+                    dis1[r[x][i].b]=dis1[x]+r[x][i].c;
+                    if(!vis[r[x][i].b]){
+                        vis[r[x][i].b]=1;
+                        q.push(r[x][i].b);
+                    }
+                    
+                }
+                if(dis2[x]!=INT_MAX&&dis1[r[x][i].b]>dis2[x]+r[x][i].c){
+                    dis1[r[x][i].b]=dis2[x]+r[x][i].c;
+                    if(!vis[r[x][i].b]){
+                        vis[r[x][i].b]=1;
+                        q.push(r[x][i].b);
+                    }
+                }
+                
+            }else{
+                if(dis1[x]!=INT_MAX&&dis2[r[x][i].b]>dis1[x]+r[x][i].c*r[x][i].c){
+                    dis2[r[x][i].b]=dis1[x]+r[x][i].c*r[x][i].c;
+                    l[r[x][i].b]=r[x][i].c;
+                    if(!vis[r[x][i].b]){
+                        vis[r[x][i].b]=1;
+                        q.push(r[x][i].b);
+                    }
+                }
+                if(dis2[x]!=INT_MAX&&dis2[r[x][i].b]>
+                   dis2[x]+r[x][i].c*r[x][i].c+2*r[x][i].c*l[x]){
+                    dis2[r[x][i].b]=
+                    dis2[x]+r[x][i].c*r[x][i].c+2*r[x][i].c*l[x];
+                    l[r[x][i].b]=l[x]+r[x][i].c;
+                    if(!vis[r[x][i].b]){
+                        vis[r[x][i].b]=1;
+                        q.push(r[x][i].b);
+                    }
+                }
+            }
+        }
+    }
+    cout<<min(dis1[n],dis2[n])<<endl;
+    return 0;
+}
+/*
+ 6 7
+ 1 1 2 3
+ 1 2 3 2
+ 0 1 3 30
+ 0 3 4 20
+ 0 4 5 30
+ 1 3 5 6
+ 1 5 6 1
+*/
+
+```
+
