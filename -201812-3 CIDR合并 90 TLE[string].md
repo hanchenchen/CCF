@@ -118,7 +118,7 @@ int main(){
  */
 ```
 
-##### `char ` 50 WA
+##### `char []` 90 TLE
 
 ```c++
 //#include<bits/stdc++.h>
@@ -140,11 +140,15 @@ void func(char s[],int i){
     while(sub>0&&s[sub]!='/')sub--;
     if(sub==0){
         ip[i].len=8*(dot+1);
+        s[(int)strlen(s)-1]='\0';
     }else{
         ip[i].len=atoi(s+sub+1);
         s[sub]='\0';
     }
-    for(int i=dot;i<3;i++)strcat(s,".0");
+    for(int i=dot;i<3;i++){
+        strcat(s,".0");
+        //cout<<s<<endl;
+    }
     ll a,b,c,d;
     sscanf(s,"%lld.%lld.%lld.%lld",&a,&b,&c,&d);
     ip[i].x=(a<<24)+(b<<16)+(c<<8)+d;
@@ -156,10 +160,10 @@ void func(char s[],int i){
 int main(){
     int n;cin>>n;
     getchar();
-    char s[20];
+    char s[30];
     vector<p> (n).swap(ip);
     for(int i=0;i<n;i++){
-        fgets(s,20,stdin);
+        fgets(s,30,stdin);
         func(s,i);
     }
     sort(ip.begin(),ip.end(),[](const p &a,const p &b){
@@ -228,5 +232,7 @@ int main(){
  
  0.0.0.0/6
  */
+
+
 ```
 
