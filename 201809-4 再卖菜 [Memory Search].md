@@ -1,4 +1,4 @@
-# 201809-4 再卖菜 [DFS]
+# 201809-4 再卖菜 [Memory Search]
 
 ```c++
 #include<bits/stdc++.h>
