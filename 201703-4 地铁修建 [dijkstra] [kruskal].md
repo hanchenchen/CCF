@@ -102,3 +102,55 @@ int main(){
 }
 ```
 
+```c++
+//#include<bits/stdc++.h>
+#include<iostream>
+#include<vector>
+#include<unordered_map>
+#include<math.h>
+using namespace std;
+const int maxN=1e5+5;
+struct edge{
+    int e,u,val;
+    edge(){}
+    edge(int x,int y,int z):e(x),u(y),val(z){}
+};
+edge g[maxN];
+int n,m,root[maxN];
+int getRoot(int x){
+    int y=x,z;
+    while(root[x]!=x)x=root[x];
+    while(y!=x){
+        z=y;
+        y=root[y];
+        root[z]=x;
+    }
+    return x;
+}
+int main(){
+    cin>>n>>m;
+    for(int i=1;i<=n;i++)root[i]=i;
+    int a,b,c,ans=0;
+    for(int i=0;i<m;i++){
+        scanf("%d %d %d",&a,&b,&c);
+        g[i]=edge(a,b,c);
+    }
+    sort(g,g+m,[](edge a,edge b){
+        return a.val<b.val;
+    });
+    for(int i=0;i<m;i++){
+        int l=getRoot(g[i].u);
+        int r=getRoot(g[i].e);
+        if(l!=r){
+            ans=g[i].val;
+            root[l]=r;
+        }
+        if(getRoot(1)==getRoot(n))break;
+    }
+    cout<<ans<<endl;
+    return 0;
+}
+
+
+```
+
