@@ -84,16 +84,13 @@ int main(){
         scanf("%d %d %d",&a,&b,&c);
         //g[i]={a,b,c};
         g.push_back(edge(a,b,c));
-        //cout<<g[i].e<<g[i].u<<g[i].val<<endl;
     }
-    //sort(g,g+m,[](edge a,edge b){
     sort(g.begin(),g.end(),[](edge a,edge b){
         return a.val<b.val;
     });
     for(int i=0;i<m;i++){
         int l=getRoot(g[i].u);
         int r=getRoot(g[i].e);
-        //cout<<l<<" "<<r<<endl;
         if(l!=r){
             ans=g[i].val;
             root[l]=r;
